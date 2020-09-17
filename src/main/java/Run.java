@@ -27,13 +27,24 @@ public class Run {
             commandLine = parser.parse(options, args);
             if (commandLine.hasOption('i')) {
                 data.init(commandLine.getOptionValue('i'));
-                System.out.println(data.getJsonarray());
             }
             if (commandLine.hasOption('u') && commandLine.hasOption('e')) {
-                System.out.print(data.getEventUsers(commandLine.getOptionValue('u'),commandLine.getOptionValue('e')));
+                if (commandLine.hasOption('r')) {
+                    System.out.print(data.getUserEventsRepos(commandLine.getOptionValue('u')
+                            , commandLine.getOptionValue('r'), commandLine.getOptionValue('e')));
+                } else {
+                    System.out.print(data.getEventUsers(commandLine.getOptionValue('u')
+                            ,commandLine.getOptionValue('e')));
+                }
             }
             if (commandLine.hasOption('r') && commandLine.hasOption('e')) {
-                System.out.print(data.getEventsRepos(commandLine.getOptionValue('r'), commandLine.getOptionValue('e')));
+                if (commandLine.hasOption('u')) {
+                    System.out.print(data.getUserEventsRepos(commandLine.getOptionValue('u')
+                            , commandLine.getOptionValue('r'), commandLine.getOptionValue('e')));
+                } else {
+                    System.out.print(data.getEventsRepos(commandLine.getOptionValue('r')
+                            , commandLine.getOptionValue('e')));
+                }
             }
         } catch (ParseException e) {
             e.printStackTrace();

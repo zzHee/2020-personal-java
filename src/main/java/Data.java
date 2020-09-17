@@ -40,8 +40,8 @@ public class Data {
                         jsonObject.fluentPut("event", itemjsonline.getString("type"));
                         jsonObject.fluentPut("repo", itemjsonline.getJSONObject("repo").getString("name"));
                         jsonarray.add(jsonObject);
+//                        System.out.println(jsonarray.size());
                     }
-
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -75,6 +75,21 @@ public class Data {
             String arepo = (String) jsonObject.get("repo");
             String aevent = (String) jsonObject.get("event");
             if (repo.equals(arepo)  && event.equals(aevent)
+            ) {
+                count += 1;
+            }
+        }
+        return count;
+    }
+
+    public double getUserEventsRepos(String user, String repo, String event) {
+        double count = 0;
+        for (int i = 0; i < jsonarray.size(); i++) {
+            JSONObject jsonObject = jsonarray.getJSONObject(i);
+            String arepo = (String) jsonObject.get("repo");
+            String aevent = (String) jsonObject.get("event");
+            String auser = (String) jsonObject.get("user");
+            if (repo.equals(arepo) && event.equals(aevent) && user.equals(auser)
             ) {
                 count += 1;
             }
